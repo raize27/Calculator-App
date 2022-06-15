@@ -3,9 +3,7 @@
 
 class cMain : public wxFrame
 {
-public: 
-	cMain();
-	~cMain();
+private:
 
 	wxButton* bttn1 = nullptr; //(-)
 	wxButton* bttn2 = nullptr; //mod
@@ -28,7 +26,14 @@ public:
 	wxButton* bttn19 = nullptr; //0
 	wxButton* bttn20 = nullptr; //=
 	wxButton* bttn21 = nullptr; //+
+	wxButton* evtBtn = nullptr;
+	wxTextCtrl* textBox = nullptr; //TEXT
 
-	wxTextCtrl* textBox = nullptr;
+public:
+
+	cMain();
+	~cMain();
+	wxDECLARE_EVENT_TABLE();
+	void OnButtonClick(wxCommandEvent& evt);
 };
 
