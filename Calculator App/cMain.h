@@ -26,14 +26,13 @@ private:
 	wxButton* bttn19 = nullptr; //0
 	wxButton* bttn20 = nullptr; //=
 	wxButton* bttn21 = nullptr; //+
-	wxButton* evtBtn = nullptr;
 	wxTextCtrl* textBox = nullptr; //TEXT
 
 public:
 
 	cMain();
 	~cMain();
-	wxDECLARE_EVENT_TABLE();
+	//wxDECLARE_EVENT_TABLE();
 	void OnButtonClick(wxCommandEvent& evt);
 };
 
