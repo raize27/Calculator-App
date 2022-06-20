@@ -1,6 +1,11 @@
 #include "cMain.h"
 #include <string>
 #include "ButtonFactory.h"
+#include "CalculatorProcessor.h"
+
+wxString first, last, result;
+int number1 = 0, number2 = 0, operators = 0;
+CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator.exe", wxPoint(1100, 600), wxSize(285, 410))
 {
@@ -46,6 +51,63 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 {
 	wxButton* obj = (wxButton*)(evt.GetEventObject());
 	textBox->AppendText(obj->GetLabel());
+
+	if (obj->GetLabel() == "+") //+
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		operators = 1;
+		textBox->Clear();
+	}
+	else if (obj->GetLabel() == "-") //-
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		operators = 2;
+		textBox->Clear();
+	}
+	else if (obj->GetLabel() == "*") // *
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		operators = 3;
+		textBox->Clear();
+	}
+	else if (obj->GetLabel() == "/") // /
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		operators = 4;
+		textBox->Clear();
+	}
+	else if (obj->GetLabel() == "C") // C
+	{
+		textBox->Clear();
+	}
+	else if (obj->GetLabel() == "=") // =
+	{
+		last = textBox->GetValue();
+		number2 = wxAtoi(last);
+		switch (operators)
+		{
+		case 1:
+			textBox->Clear();
+			textBox->AppendText(processor->DoSum(number1, number2));
+			break;
+		case 2:
+			textBox->Clear();
+			textBox->AppendText(processor->DoMinus(number1, number2));
+			break;
+		case 3:
+			textBox->Clear();
+			textBox->AppendText(processor->DoMult(number1, number2));
+			break;
+		case 4:
+			textBox->Clear();
+			textBox->AppendText(processor->DoDiv(number1, number2));
+			break;
+		}
+	}
 }
 
 //---------------------------------------------Old Code-------------------------------------------------
