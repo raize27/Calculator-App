@@ -80,6 +80,41 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 		operators = 4;
 		textBox->Clear();
 	}
+	else if (obj->GetLabel() == "MOD") // MOD
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		operators = 5;
+		textBox->Clear();
+	}
+	else if (obj->GetLabel() == "DEC") // DEC
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		textBox->Clear();
+		textBox->AppendText(processor->GetDecimal(number1));
+	}
+	else if (obj->GetLabel() == "HEX") // Hex
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		textBox->Clear();
+		textBox->AppendText(processor->GetHexadecimal(number1));
+	}
+	else if (obj->GetLabel() == "BIN") // BIN
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		textBox->Clear();
+		textBox->AppendText(processor->GetBinary(number1));
+	}
+	else if (obj->GetLabel() == "(-)") // (-)
+	{
+		first = textBox->GetValue();
+		number1 = wxAtoi(first);
+		textBox->Clear();
+		textBox->AppendText(processor->MakeNegative(number1));
+	}
 	else if (obj->GetLabel() == "C") // C
 	{
 		textBox->Clear();
@@ -105,6 +140,10 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 		case 4:
 			textBox->Clear();
 			textBox->AppendText(processor->DoDiv(number1, number2));
+			break;
+		case 5:
+			textBox->Clear();
+			textBox->AppendText(processor->GetMod(number1, number2));
 			break;
 		}
 	}
