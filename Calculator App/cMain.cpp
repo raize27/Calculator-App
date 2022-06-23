@@ -3,8 +3,6 @@
 #include "ButtonFactory.h"
 #include "CalculatorProcessor.h"
 
-wxString first, last, result;
-int number1 = 0, number2 = 0, operators = 0;
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator.exe", wxPoint(1100, 600), wxSize(285, 410))
@@ -54,66 +52,57 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 
 	if (obj->GetLabel() == "+") //+
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
-		operators = 1;
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
+		processor->SetOperator(1);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "-") //-
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
-		operators = 2;
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
+		processor->SetOperator(2);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "*") // *
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
-		operators = 3;
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
+		processor->SetOperator(3);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "/") // /
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
-		operators = 4;
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
+		processor->SetOperator(4);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "MOD") // MOD
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
-		operators = 5;
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
+		processor->SetOperator(5);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "DEC") // DEC
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
 		textBox->Clear();
-		textBox->AppendText(processor->GetDecimal(number1));
+		textBox->AppendText(processor->GetDecimal());
 	}
 	else if (obj->GetLabel() == "HEX") // Hex
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
 		textBox->Clear();
-		textBox->AppendText(processor->GetHexadecimal(number1));
+		textBox->AppendText(processor->GetHexadecimal());
 	}
 	else if (obj->GetLabel() == "BIN") // BIN
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
 		textBox->Clear();
-		textBox->AppendText(processor->GetBinary(number1));
+		textBox->AppendText(processor->GetBinary());
 	}
 	else if (obj->GetLabel() == "(-)") // (-)
 	{
-		first = textBox->GetValue();
-		number1 = wxAtoi(first);
+		processor->SetNumber1(wxAtoi(textBox->GetValue()));
 		textBox->Clear();
-		textBox->AppendText(processor->MakeNegative(number1));
+		textBox->AppendText(processor->MakeNegative());
 	}
 	else if (obj->GetLabel() == "C") // C
 	{
@@ -121,29 +110,28 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 	}
 	else if (obj->GetLabel() == "=") // =
 	{
-		last = textBox->GetValue();
-		number2 = wxAtoi(last);
-		switch (operators)
+		processor->SetNumber2(wxAtoi(textBox->GetValue()));
+		switch (processor->GetOperator())
 		{
 		case 1:
 			textBox->Clear();
-			textBox->AppendText(processor->DoSum(number1, number2));
+			textBox->AppendText(processor->DoSum());
 			break;
 		case 2:
 			textBox->Clear();
-			textBox->AppendText(processor->DoMinus(number1, number2));
+			textBox->AppendText(processor->DoMinus());
 			break;
 		case 3:
 			textBox->Clear();
-			textBox->AppendText(processor->DoMult(number1, number2));
+			textBox->AppendText(processor->DoMult());
 			break;
 		case 4:
 			textBox->Clear();
-			textBox->AppendText(processor->DoDiv(number1, number2));
+			textBox->AppendText(processor->DoDiv());
 			break;
 		case 5:
 			textBox->Clear();
-			textBox->AppendText(processor->GetMod(number1, number2));
+			textBox->AppendText(processor->GetMod());
 			break;
 		}
 	}
