@@ -3,13 +3,15 @@
 #include "cMain.h"
 #include "ButtonFactory.h"
 
-class CalculatorProcessor
+class CalculatorProcessor 
 {
 private:
 
 	CalculatorProcessor() {}
 
 	static CalculatorProcessor* _processor;
+
+	int _number1, _number2, _operator;
 
 public:
 
@@ -26,38 +28,66 @@ public:
 
 	void operator=(const CalculatorProcessor& other) = delete;
 
-	std::string DoSum(int number1, int number2)
+	//Getters
+
+	int GetNumber1() 
 	{
-		auto answer = number1 + number2;
-		
-		std::string result = std::to_string(answer);
+		return _number1;
+	}
+	int GetNumber2()
+	{
+		return _number2;
+	}
+	int GetOperator()
+	{
+		return _operator;
+	}
+
+	//Setters
+
+	void SetNumber1(int number1)
+	{
+		_number1 = number1;
+	}
+	void SetNumber2(int number2)
+	{
+		_number2 = number2;
+	}
+	void SetOperator(int operators)
+	{
+		_operator = operators;
+	}
+
+	std::string DoSum()
+	{
+		std::string result = std::to_string(_number1 + _number2);
 		return result;
 	}
-	std::string DoMinus(int number1, int number2)
+	std::string DoMinus()
 	{
-		std::string result = std::to_string(number1 - number2);
+		std::string result = std::to_string(_number1 - _number2);
 		return result;
 	}
-	std::string DoMult(int number1, int number2)
+	std::string DoMult()
 	{
-		std::string result = std::to_string(number1 * number2);
+		std::string result = std::to_string(_number1 * _number2);
 		return result;
 	}
-	std::string DoDiv(int number1, int number2)
+	std::string DoDiv()
 	{
-		std::string result = std::to_string(number1 / number2);
+		std::string result = std::to_string(_number1 / _number2);
 		return result;
 	}
-	std::string GetDecimal(int number1)
+	std::string GetDecimal()
 	{
-		return std::to_string(number1);
+		return std::to_string(_number1);
 	}
-	std::string GetHexadecimal(int number1) 
+	std::string GetHexadecimal() 
 	{
 		std::string results = "";
-		while (number1 > 0) 
+		while (_number1 > 0) 
 		{
-			int mod = number1 % 16;
+			int mod = _number1 % 16;
 			if (mod < 10)
 			{
 				results = std::to_string(mod) + results;
@@ -86,18 +116,18 @@ public:
 			{
 				results = "F" + results;
 			}
-			number1 = number1 / 16;
+			_number1 = _number1 / 16;
 		}
 		results = "0x" + results;
 
 		return results;
 	}
-	std::string GetBinary(int number1)
+	std::string GetBinary()
 	{
 		std::string results = "";
 		for (int i = 0; i < 28; i++)
 		{
-			if (number1 % 2 == 0)
+			if (_number1 % 2 == 0)
 			{
 				results = "0" + results;
 			}
@@ -105,18 +135,18 @@ public:
 			{
 				results = "1" + results;
 			}
-			number1 = number1 / 2;
+			_number1 = _number1 / 2;
 		}
 		return results;
 	}
-	std::string GetMod(int number1, int number2) 
+	std::string GetMod() 
 	{
-		std::string result = std::to_string(number1 % number2);
+		std::string result = std::to_string(_number1 % _number2);
 		return result;
 	}
-	std::string MakeNegative(int number1)
+	std::string MakeNegative()
 	{
-		std::string result = std::to_string(number1 * -1);
+		std::string result = std::to_string(_number1 * -1);
 		return result;
 	}
 };
