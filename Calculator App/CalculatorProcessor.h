@@ -7,7 +7,7 @@ class CalculatorProcessor
 {
 private:
 
-	CalculatorProcessor() {}
+	CalculatorProcessor() {	}
 
 	static CalculatorProcessor* _processor;
 

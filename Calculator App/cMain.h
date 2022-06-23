@@ -32,7 +32,6 @@ public:
 
 	cMain();
 	~cMain();
-	//wxDECLARE_EVENT_TABLE();
 	void OnButtonClick(wxCommandEvent& evt);
 };
 
