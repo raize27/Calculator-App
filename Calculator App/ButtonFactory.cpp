@@ -1,7 +1,6 @@
 #include "ButtonFactory.h"
 #include "wx/wx.h"
 
-
 ButtonFactory::ButtonFactory()
 {
 

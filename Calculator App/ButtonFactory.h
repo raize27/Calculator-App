@@ -7,7 +7,6 @@ class ButtonFactory
 public:
 
 	ButtonFactory();
-
 	~ButtonFactory();
 
 	wxButton* CreateNegButton(void (cMain::* handler)(wxCommandEvent& evt), cMain* main);//(-)
