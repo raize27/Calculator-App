@@ -147,6 +147,11 @@
     <ClInclude Include="CalculatorProcessor.h" />
     <ClInclude Include="cApp.h" />
     <ClInclude Include="cMain.h" />
+    <ClInclude Include="DoDiv.h" />
+    <ClInclude Include="DoMinus.h" />
+    <ClInclude Include="DoMult.h" />
+    <ClInclude Include="DoSum.h" />
+    <ClInclude Include="ICommand.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonFactory.cpp" />
