@@ -2,6 +2,8 @@
 #include <string>
 #include "cMain.h"
 #include "ButtonFactory.h"
+#include "ICommand.h"
+#include <vector>
 
 class CalculatorProcessor 
 {
@@ -15,6 +17,9 @@ private:
 
 public:
 
+	std::vector<ICommand*> commands;
+	std::vector<int> numbers;
+
 	static CalculatorProcessor* GetInstance()
 	{
 		if (_processor == nullptr)
@@ -23,6 +28,7 @@ public:
 		}
 		return _processor;
 	}
+
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 

@@ -2,6 +2,11 @@
 #include <string>
 #include "ButtonFactory.h"
 #include "CalculatorProcessor.h"
+#include "DoSum.h"
+#include "DoMinus.h"
+#include "DoMult.h"
+#include "DoDiv.h"
+
 
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 
@@ -52,33 +57,38 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 
 	if (obj->GetLabel() == "+") //+
 	{
-		processor->SetNumber1(wxAtoi(textBox->GetValue()));
-		processor->SetOperator(1);
+		processor->numbers.push_back(wxAtoi(textBox->GetValue()));
+		DoSum* s = new DoSum();
+		processor->commands.push_back(s);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "-") //-
 	{
-		processor->SetNumber1(wxAtoi(textBox->GetValue()));
-		processor->SetOperator(2);
+		processor->numbers.push_back(wxAtoi(textBox->GetValue()));
+		DoMinus* m = new DoMinus();
+		processor->commands.push_back(m);
 		textBox->Clear();
+
 	}
 	else if (obj->GetLabel() == "*") // *
 	{
-		processor->SetNumber1(wxAtoi(textBox->GetValue()));
-		processor->SetOperator(3);
+		processor->numbers.push_back(wxAtoi(textBox->GetValue()));
+		DoMult* t = new DoMult();
+		processor->commands.push_back(t);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "/") // /
 	{
-		processor->SetNumber1(wxAtoi(textBox->GetValue()));
-		processor->SetOperator(4);
+		processor->numbers.push_back(wxAtoi(textBox->GetValue()));
+		DoDiv* d = new DoDiv();
+		processor->commands.push_back(d);
 		textBox->Clear();
 	}
 	else if (obj->GetLabel() == "MOD") // MOD
 	{
 		processor->SetNumber1(wxAtoi(textBox->GetValue()));
-		processor->SetOperator(5);
 		textBox->Clear();
+		processor->SetOperator(1);
 	}
 	else if (obj->GetLabel() == "DEC") // DEC
 	{
@@ -107,32 +117,35 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 	else if (obj->GetLabel() == "C") // C
 	{
 		textBox->Clear();
+		processor->commands.clear();
+		processor->numbers.clear();
 	}
 	else if (obj->GetLabel() == "=") // =
 	{
-		processor->SetNumber2(wxAtoi(textBox->GetValue()));
-		switch (processor->GetOperator())
+		if (processor->GetOperator() == 1)
 		{
-		case 1:
-			textBox->Clear();
-			textBox->AppendText(processor->DoSum());
-			break;
-		case 2:
-			textBox->Clear();
-			textBox->AppendText(processor->DoMinus());
-			break;
-		case 3:
-			textBox->Clear();
-			textBox->AppendText(processor->DoMult());
-			break;
-		case 4:
-			textBox->Clear();
-			textBox->AppendText(processor->DoDiv());
-			break;
-		case 5:
+			processor->SetNumber2(wxAtoi(textBox->GetValue()));
 			textBox->Clear();
 			textBox->AppendText(processor->GetMod());
-			break;
+			processor->SetOperator(0);
+		}
+		else
+		{
+			processor->numbers.push_back(wxAtoi(textBox->GetValue()));
+			int result = 0;
+			for (int i = 0; i < processor->commands.size(); i++)
+			{
+				textBox->Clear();
+				result = processor->commands[i]->Execute(processor->numbers[i], processor->numbers[i + 1]);
+				processor->numbers[i + 1] = result;
+				if (result == MAXINT) {
+					textBox->AppendText("ERROR. Cannot divide by 0."); 
+				}
+				else
+				textBox->AppendText(std::to_string(result));
+			}
+			processor->commands.clear();
+			processor->numbers.clear();
 		}
 	}
 }
