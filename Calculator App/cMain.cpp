@@ -8,6 +8,7 @@
 #include "DoDiv.h"
 
 
+
 CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator.exe", wxPoint(1100, 600), wxSize(285, 410))
