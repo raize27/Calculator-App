@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "ButtonFactory.h"
 #include "wx/wx.h"
 
@@ -18,6 +19,7 @@ void ButtonFactory::SetParent(wxFrame* parent) {
 wxFrame* ButtonFactory::GetParent() {
 	return _parent;
 }
+
 
 wxButton* ButtonFactory::CreateNegButton(void (cMain::* handler)(wxCommandEvent& evt), cMain* main)
 {

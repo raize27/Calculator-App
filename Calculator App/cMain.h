@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include "wx/wx.h"
 
 class cMain : public wxFrame
@@ -32,6 +33,8 @@ public:
 
 	cMain();
 	~cMain();
+	cMain(cMain& other);
+	void operator=(const cMain& other);
 	void OnButtonClick(wxCommandEvent& evt);
 };
 

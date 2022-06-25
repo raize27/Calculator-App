@@ -1,34 +1,34 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include "cMain.h"
 #include "ButtonFactory.h"
 #include "ICommand.h"
 #include <vector>
+//#include "CalculatorProcessor.cpp"
 
-class CalculatorProcessor 
+
+class CalculatorProcessor
 {
 private:
 
-	CalculatorProcessor() {	}
+	//static CalculatorProcessor* _processor;
 
-	static CalculatorProcessor* _processor;
-
-	int _number1, _number2, _operator;
+	int _number1 = 0, _number2 = 0, _operator = 0;
 
 public:
-
+	CalculatorProcessor() {	}
 	std::vector<ICommand*> commands;
 	std::vector<int> numbers;
-
-	static CalculatorProcessor* GetInstance()
-	{
+	//static CalculatorProcessor* GetInstance();
+	static CalculatorProcessor* GetInstance();
+	/*{
 		if (_processor == nullptr)
 		{
 			_processor = new CalculatorProcessor();
 		}
 		return _processor;
-	}
-
+	}*/
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 
@@ -36,7 +36,7 @@ public:
 
 	//Getters
 
-	int GetNumber1() 
+	int GetNumber1()
 	{
 		return _number1;
 	}
@@ -88,10 +88,10 @@ public:
 	{
 		return std::to_string(_number1);
 	}
-	std::string GetHexadecimal() 
+	std::string GetHexadecimal()
 	{
 		std::string results = "";
-		while (_number1 > 0) 
+		while (_number1 > 0)
 		{
 			int mod = _number1 % 16;
 			if (mod < 10)
@@ -145,7 +145,7 @@ public:
 		}
 		return results;
 	}
-	std::string GetMod() 
+	std::string GetMod()
 	{
 		std::string result = std::to_string(_number1 % _number2);
 		return result;
@@ -155,7 +155,9 @@ public:
 		std::string result = std::to_string(_number1 * -1);
 		return result;
 	}
+
+	//CalculatorProcessor* CalculatorProcessor::_processor = nullptr;
 };
 
-CalculatorProcessor* CalculatorProcessor::_processor = nullptr;
+
 
