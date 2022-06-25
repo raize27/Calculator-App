@@ -1,15 +1,14 @@
+#define _CRT_SECURE_NO_WARNINGS
+#pragma once
 #include "cMain.h"
+#include "CalculatorProcessor.h"
 #include <string>
 #include "ButtonFactory.h"
-#include "CalculatorProcessor.h"
 #include "DoSum.h"
 #include "DoMinus.h"
 #include "DoMult.h"
 #include "DoDiv.h"
 
-
-
-CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 
 cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Calculator.exe", wxPoint(1100, 600), wxSize(285, 410))
 {
@@ -51,8 +50,17 @@ cMain::~cMain()
 {
 
 }
+
+
+cMain::cMain(cMain& other) {}
+
+void cMain::operator=(const cMain& other) {};
+
+
 void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 {
+	CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
+
 	wxButton* obj = (wxButton*)(evt.GetEventObject());
 	textBox->AppendText(obj->GetLabel());
 
@@ -140,10 +148,10 @@ void cMain::OnButtonClick(wxCommandEvent& evt) //Handles button clicks
 				result = processor->commands[i]->Execute(processor->numbers[i], processor->numbers[i + 1]);
 				processor->numbers[i + 1] = result;
 				if (result == MAXINT) {
-					textBox->AppendText("ERROR. Cannot divide by 0."); 
+					textBox->AppendText("ERROR. Cannot divide by 0.");
 				}
 				else
-				textBox->AppendText(std::to_string(result));
+					textBox->AppendText(std::to_string(result));
 			}
 			processor->commands.clear();
 			processor->numbers.clear();
